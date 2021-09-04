@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Header} from "./components/Header/Header";
+import {Navbar} from "./components/Navbar/Navbar";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Route} from "react-router-dom";
+import {News} from "./components/News/News";
+import {Music} from "./components/Music/Music";
+import {Settings} from "./components/Settings/Settings";
+import { RootStateType} from "./redux/store"
+import UsersContainer from "./components/Users/UsersContainer";
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import ProfileContainer from "./components/Profile/ProfileContainer";
+
+export type AppPropsType = {
+    state: RootStateType
+    addPost: (postMessage: string) => void
+    updateNewPostText: (newText: string) => void
+    dispatch: (store, action) => void
+}
+
+export const App = (props: AppPropsType) => {
+    return (
+            <div className={'app-wrapper'}>
+                <Header/>
+                <Navbar/>
+                <div className={'app-wrapper-content'}>
+                    <Route path={'/dialogs'}
+                           render={() => <DialogsContainer/>}/>
+
+                    <Route path='/profile'
+                           render={() => <ProfileContainer/>}/>
+                    <Route path={'/users'}
+                           render={()=> <UsersContainer/> }/>
+                    <Route path={'/news'}
+                           render={() => <News/>}/>
+                    <Route path={'/music'}
+                           render={() => <Music/>}/>
+                    <Route path={'/settings'}
+                           render={() => <Settings/>}/>
+                </div>
+            </div>
+    )
 }
 
 export default App;
