@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 
 import { Route} from "react-router-dom";
@@ -11,6 +10,7 @@ import { RootStateType} from "./redux/store"
 import UsersContainer from "./components/Users/UsersContainer";
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 export type AppPropsType = {
     state: RootStateType
@@ -22,13 +22,13 @@ export type AppPropsType = {
 export const App = (props: AppPropsType) => {
     return (
             <div className={'app-wrapper'}>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Route path={'/dialogs'}
                            render={() => <DialogsContainer/>}/>
 
-                    <Route path='/profile'
+                    <Route path='/profile/:userId?'
                            render={() => <ProfileContainer/>}/>
                     <Route path={'/users'}
                            render={()=> <UsersContainer/> }/>
