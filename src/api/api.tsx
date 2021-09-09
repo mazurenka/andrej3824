@@ -21,7 +21,7 @@ export const getUsers2 = (currentPage = 1, pageSize = 10) => {
     return instans.get(`follow?page=${currentPage}&count=${pageSize}`)
         .then(responce => {
             return responce.data;
-        });
+        }) ;
 }
 
 
