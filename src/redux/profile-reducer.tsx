@@ -1,6 +1,7 @@
 import {PostType, RootStateType} from "./store";
 import React from "react";
 import {ProfilePropsType} from "../components/Profile/Profile";
+import {usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -48,6 +49,11 @@ const profileReducer = (state = initialState, action: any) => {
 }
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const setUserProfile = (profile: React.FC<ProfilePropsType>) => ({type: SET_USER_PROFILE, profile})
+export const getUserProfile = (userId: number) => (dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data))
+    })
+}
 export const updateNewPostActionCreator = (text: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
 

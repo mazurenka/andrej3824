@@ -3,19 +3,19 @@ import {connect} from "react-redux";
 import {
     follow,
     setCurrentPage,
-    unfollow, toggleFollowingProgress, getUsers
+    unfollow, toggleFollowingProgress
 } from "../../redux/users-reducer";
 import {RootStateType} from "../../redux/store";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
-import {usersAPI} from "../../api/api";
+
 
 type DispatchType = {
     followAC: (text: string, userId: number) => void
 }
 
 class UsersContainer extends React.Component {
+    // eslint-disable-next-line react/no-typos
     componentDidmount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
@@ -52,4 +52,8 @@ let mapStateToProps = (state: RootStateType) => {
 }
 
 export default connect(mapStateToProps,
-    {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers)(UsersContainer)
+    {follow,
+        unfollow,
+        setCurrentPage,
+        toggleFollowingProgress,
+        getUsers})(UsersContainer)

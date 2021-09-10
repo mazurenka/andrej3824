@@ -6,7 +6,7 @@ import { Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import { RootStateType} from "./redux/store"
+import {RootStateType, StoreType} from "./redux/store"
 import UsersContainer from "./components/Users/UsersContainer";
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -16,7 +16,7 @@ export type AppPropsType = {
     state: RootStateType
     addPost: (postMessage: string) => void
     updateNewPostText: (newText: string) => void
-    dispatch: (store, action) => void
+    dispatch: (store: StoreType, action) => void
 }
 
 export const App = (props: AppPropsType) => {

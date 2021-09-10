@@ -58,7 +58,9 @@ export type DialogsPageType = {
 export type AddPostType = {
     newPost: PostType
 }
-
+export type StoreType = {
+    _state: RootStateType
+}
 export let store = {
     _state: RootStateType = {
         profilePage: {
