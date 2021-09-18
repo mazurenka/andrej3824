@@ -3,11 +3,12 @@ import {connect} from "react-redux";
 import {
     follow,
     setCurrentPage,
-    unfollow, toggleFollowingProgress
+    unfollow, toggleFollowingProgress, getUsers
 } from "../../redux/users-reducer";
 import {RootStateType} from "../../redux/store";
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type DispatchType = {
@@ -51,9 +52,9 @@ let mapStateToProps = (state: RootStateType) => {
     }
 }
 
-export default connect(mapStateToProps,
+export default withAuthRedirect(connect(mapStateToProps,
     {follow,
         unfollow,
         setCurrentPage,
         toggleFollowingProgress,
-        getUsers})(UsersContainer)
+        getUsers})(UsersContainer))
