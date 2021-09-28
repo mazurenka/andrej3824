@@ -4,7 +4,6 @@ import {ProfilePropsType} from "../components/Profile/Profile";
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 
@@ -17,7 +16,6 @@ let initialState = {
         {id: 5, message: 'Yo', likesCount: 5},
         {id: 6, message: 'Yo', likesCount: 7}
     ],
-    newPostText: 'it-kamasutra',
     profile: null,
     status: ""
 }
@@ -27,7 +25,7 @@ const profileReducer = (state = initialState, action: any) => {
         case ADD_POST: {
             let newPost: PostType = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             };
             return {
@@ -36,12 +34,7 @@ const profileReducer = (state = initialState, action: any) => {
                 newPostText: ''
             };
         }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
-            }
-        }
+
         case SET_STATUS: {
             return {
                 ...state,
@@ -56,7 +49,7 @@ const profileReducer = (state = initialState, action: any) => {
             return state
     }
 }
-export const addPostActionCreator = () => ({type: ADD_POST})
+export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
 export const setUserProfile = (profile: React.FC<ProfilePropsType>) => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status: string) => ({type: SET_STATUS, status})
 
@@ -78,8 +71,7 @@ export const updateStatus = (status: string) => (dispatch) => {
             }
         })
 }
-export const updateNewPostActionCreator = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+
 
 export default profileReducer;
 
