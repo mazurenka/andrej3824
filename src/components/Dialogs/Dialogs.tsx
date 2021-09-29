@@ -6,6 +6,9 @@ import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialo
 import {DialogsPageType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 import reduxForm, {Field} from "redux-form";
+import { Textarea } from "../common/FormsControls/FormsControls";
+import {required} from "../../utils/validators";
+import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
 export type PropsType = {
     dialogsPage: DialogsPageType
@@ -38,17 +41,8 @@ export const Dialogs = (props: PropsType) => {
     )
 }
 
-const AddMessageForm = (props) => {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field component={'textarea'} name={'newMessageBody'} placeholder={'Enter your message'}/>
-            </div>
-            <div>
-                <button>Send</button>
-            </div>
-        </form>
-    )
-}
+
+
+
 
 const AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'}) (AddMessageForm)
