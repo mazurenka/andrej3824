@@ -2,8 +2,7 @@ import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/store";
-import {getAuthUserData} from "../../redux/auth-reducer";
-import {authAPI} from "../../api/api";
+import {getAuthUserData, logout} from "../../redux/auth-reducer";
 
 class HeaderContainer extends React.Component {
     // eslint-disable-next-line react/no-typos
@@ -19,4 +18,4 @@ const mapStateToProps = (state: RootStateType) => ({
     login: state.auth.login,
 
 });
-export default connect(mapStateToProps, {getAuthUserData}) (HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserData, logout}) (HeaderContainer);
