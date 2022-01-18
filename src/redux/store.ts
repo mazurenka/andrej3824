@@ -27,6 +27,7 @@ export type Users = {
 type SidebarType = {}
 
 export type RootStateType = {
+    auth: boolean
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
@@ -117,6 +118,7 @@ export let store = {
 }
 
 export default store
+// @ts-ignore
 window.store = store
 
 

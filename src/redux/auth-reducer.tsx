@@ -1,4 +1,6 @@
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
+import {Dispatch} from "redux";
 
 export type usersType = {
     id: number
@@ -12,7 +14,6 @@ export type usersType = {
 type locationType = {
     city: string
     country: string
-
 }
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -42,7 +43,7 @@ export const setAuthUserData = (userId: null | number,
                                 isAuth: boolean
 ) => ({SET_USER_DATA, payload: {userId, email, login, isAuth}})
 
-export const getAuthUserData = () => (dispatch) => {
+export const getAuthUserData = () => (dispatch: Dispatch) => {
     authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
@@ -52,11 +53,15 @@ export const getAuthUserData = () => (dispatch) => {
         })
 }
 
-export const login = (email: symbol, password: symbol, rememberMe: boolean) => (dispatch) => {
+export const login = (email: symbol, password: symbol, rememberMe: boolean) => (dispatch: Dispatch) => {
+
     authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
+            } else {
+                let message = response.data.messages.length >0 ? response.data.messages[0] : "Some error"
+                dispatch(stopSubmit('login', {_error: message}))
             }
         })
 }
