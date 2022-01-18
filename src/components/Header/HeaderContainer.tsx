@@ -5,8 +5,8 @@ import {RootStateType} from "../../redux/store";
 import {getAuthUserData, logout} from "../../redux/auth-reducer";
 
 class HeaderContainer extends React.Component {
-    // eslint-disable-next-line react/no-typos
-    componentDidmount() {
+
+    componentDidMount() {
         this.props.getAuthUserData()
     }
     render() {
