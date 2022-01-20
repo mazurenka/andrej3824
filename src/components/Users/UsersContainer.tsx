@@ -11,14 +11,12 @@ import Preloader from "../common/Preloader/preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-
 type DispatchType = {
     followAC: (text: string, userId: number) => void
 }
 
 class UsersContainer extends React.Component {
-    // eslint-disable-next-line react/no-typos
-    componentDidmount() {
+    componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
@@ -54,13 +52,9 @@ let mapStateToProps = (state: RootStateType) => {
 }
 
 export default compose(
-    withAuthRedirect,
-    connect(mapStateToProps,
-        {
-            follow,
-            unfollow,
-            setCurrentPage,
-            toggleFollowingProgress,
-            getUsers
-        })(UsersContainer)
-)(UsersContainer)
+    connect(mapStateToProps, {
+        follow, unfollow, setCurrentPage,
+        toggleFollowingProgress,
+        getUsers
+    }))(UsersContainer)
+
