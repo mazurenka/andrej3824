@@ -27,12 +27,12 @@ export type Users = {
 type SidebarType = {}
 
 export type RootStateType = {
-    auth: boolean
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
     posts: Array<PostType>
     newPostText: PostType
+    auth: boolean
 }
 export type AppPropsType = {
     state: RootStateType
@@ -54,6 +54,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     messages: Array<MessageType>
     dialogs: Array<DialogType>
+    newMessageBody: string
 }
 
 export type AddPostType = {
@@ -61,8 +62,12 @@ export type AddPostType = {
 }
 export type StoreType = {
     _state: RootStateType
+    _callSubscriber: () => void
+    getState: () => void
+    subscribe: (observer: any) => void
+    dispatch: (action: string) => void
 }
-export let store = {
+export let store: StoreType = {
     _state: RootStateType = {
         profilePage: {
             posts: [
@@ -99,14 +104,12 @@ export let store = {
     _callSubscriber() {
         console.log('State changed')
     },
-
     getState() {
         return this._state
     },
     subscribe(observer: any) {
         this._callSubscriber = observer
     },
-
     dispatch(action: string) {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
@@ -116,6 +119,7 @@ export let store = {
         this._callSubscriber(this._state)
     }
 }
+
 
 export default store
 // @ts-ignore
