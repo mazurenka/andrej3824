@@ -20,7 +20,7 @@ let reducers = combineReducers({
 )
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
-
+//@ts-ignore
 window.store = store;
 
 export default store;
