@@ -30,12 +30,11 @@ let initialState = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false,
+    isFetching: true,
     followingInProgress: []
 }
 
 const usersReducer = (state = initialState, action: any) => {
-
     switch (action.type) {
         case FOLLOW:
             return {
@@ -47,7 +46,6 @@ const usersReducer = (state = initialState, action: any) => {
                     return u
                 })
             }
-
         case UNFOLLOW:
             return {
                 ...state,
