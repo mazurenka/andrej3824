@@ -1,4 +1,3 @@
-import {rerenderEntireTree} from "../index";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
@@ -20,22 +19,9 @@ export type PostType = {
     likesCount: number
 }
 
-export type Users = {
-
-}
-
 type SidebarType = {}
 
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-    sidebar: SidebarType
-    posts: Array<PostType>
-    newPostText: PostType
-    auth: boolean
-}
 export type AppPropsType = {
-    state: RootStateType
     posts: Array<PostType>
     messages: DialogsPageType
     dialogs: DialogType
@@ -61,14 +47,21 @@ export type AddPostType = {
     newPost: PostType
 }
 export type StoreType = {
-    _state: RootStateType
+    _state: _StateType
     _callSubscriber: () => void
     getState: () => void
     subscribe: (observer: any) => void
     dispatch: (action: string) => void
 }
-export let store: StoreType = {
-    _state: RootStateType = {
+
+export type _StateType = {
+    profilePage: ProfilePageType,
+    dialogsPage: DialogsPageType,
+    sidebar: object
+}
+
+export const store: StoreType = {
+    _state: {
         profilePage: {
             posts: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 2},
@@ -111,11 +104,9 @@ export let store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action: string) {
-
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.profilePage, action)
-
         this._callSubscriber(this._state)
     }
 }
