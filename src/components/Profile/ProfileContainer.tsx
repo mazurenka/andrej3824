@@ -37,12 +37,14 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state: RootStateType) => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
-})
+let mapStateToProps = (state: RootStateType) => {
+    return ({
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
+    })
+}
 
 export default compose(
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),

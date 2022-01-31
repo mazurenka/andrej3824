@@ -37,13 +37,13 @@ let AddNewPostForm = (props: { onChange: () => void, ref: React.RefObject<HTMLTe
 
 let AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export function MyPosts(props: MyPostsPropsType) {
     let postsElements =
-        props.posts.map((p) => <Post message={p.message} likesCount={p.likesCount} id={p.id}/>)
+        props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
-    let onAddPost = (values) => {
+    let onAddPost = (values: any) => {
         props.addPost(values.newPostText)
     }
 
