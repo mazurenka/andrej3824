@@ -38,7 +38,9 @@ let AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostF
 
 const MyPosts = React.memo((props: MyPostsPropsType) => {
     let postsElements =
-        props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+        [...props.posts]
+            .reverse()
+            .map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
