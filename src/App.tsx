@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/preloader";
+import {Component} from 'react';
 
 export type AppType = {
     state: RootStateType
@@ -20,7 +21,7 @@ export type AppType = {
     dispatch: (store: StoreType, action: string) => void
 }
 
-class App extends React.Component {
+class App extends Component {
     componentDidMount() {
         this.props.initializeApp()
     }
@@ -30,6 +31,7 @@ class App extends React.Component {
             return <Preloader/>
         }
         return (
+
             <div className={'app-wrapper'}>
                 <HeaderContainer/>
                 <Navbar/>
