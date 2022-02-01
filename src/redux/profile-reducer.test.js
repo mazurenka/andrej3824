@@ -1,4 +1,4 @@
-import profileReducer, {addPostActionCreator} from "./profile-reducer";
+import profileReducer, {addPostActionCreator, deletePost} from "./profile-reducer";
 
 let state = {
     posts: [
@@ -15,6 +15,7 @@ it('new post should be added', () => {
 
     expect(newState.posts.length).toBe(5)
 })
+
 it('new message "Hey" should be added', () => {
     let action = addPostActionCreator("Hey")
     let newState = profileReducer(state, action)
@@ -22,6 +23,7 @@ it('new message "Hey" should be added', () => {
     expect(newState.posts[4].message).toBe("Hey")
 
 })
+
 it('new likesCount should be added', () => {
     let action = addPostActionCreator("Hey")
     let newState = profileReducer(state, action)
@@ -29,3 +31,16 @@ it('new likesCount should be added', () => {
     expect(newState.posts[4].likesCount).toBe(0)
 })
 
+it('after deleting length should be decrement', () => {
+    let action = deletePost(1)
+    let newState = profileReducer(state, action)
+
+    expect(newState.posts.length).toBe(3)
+})
+
+it('after deleting length should"nt be decrement if id is incorrect', () => {
+    let action = deletePost(1000)
+    let newState = profileReducer(state, action)
+
+    expect(newState.posts.length).toBe(4)
+})
