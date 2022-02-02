@@ -51,7 +51,7 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
     initialized: state.app.initialized
 }
 
