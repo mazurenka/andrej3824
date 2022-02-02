@@ -2,7 +2,7 @@ import React from "react";
 import s from './MyPosts.module.css';
 import {PostType} from "../../../redux/store";
 import Field, {reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 import {Post} from "./Post/Post";
 

@@ -7,7 +7,7 @@ import {DialogsPageType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 import reduxForm, {Field} from "redux-form";
 import { Textarea } from "../common/FormsControls/FormsControls";
-import {required} from "../../utils/validators";
+import {required} from "../../utils/validators/validators";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
 export type PropsType = {
