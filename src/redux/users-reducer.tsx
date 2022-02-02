@@ -105,25 +105,24 @@ export const requestUsers = (page: number, pageSize: number) => {
     }
 }
 
+const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    let response = await apiMethod(userId)
+
+    if (response.data.resultCode === 0) {
+        dispatch(actionCreator(userId))
+    }
+    dispatch(toggleFollowingProgress(false, userId))
+}
+
 export const follow = (userId: string) => {
     return async (dispatch: Dispatch) => {
-        dispatch(toggleFollowingProgress(true, userId))
-        let response = await usersAPI.follow(userId)
-        if (response.data.resultCode == 0) {
-            dispatch(followSuccess(userId))
-        }
-        dispatch(toggleFollowingProgress(false, userId))
-
+        followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess)
     }
 }
 export const unfollow = (userId: string) => {
-    return async (dispatch: any) => {
-        dispatch(toggleFollowingProgress(true, userId))
-        let response = await usersAPI.unfollow(userId)
-        if (response.data.resultCode == 0) {
-            dispatch(unfollowSuccess(userId))
-        }
-        dispatch(toggleFollowingProgress(false, userId))
+    return async (dispatch: Dispatch) => {
+        followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), followSuccess)
     }
 }
 
