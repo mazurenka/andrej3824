@@ -52,7 +52,7 @@ export const getAuthUserData = () => async (dispatch) => {
     }
 }
 
-export const login = (email: symbol, password: symbol, rememberMe: boolean) => async (dispatch) => {
+export const login = (email: symbol, password: symbol, rememberMe: boolean) => async (dispatch: any) => {
 
     let response = await authAPI.login(email, password, rememberMe)
     if (response.data.resultCode === 0) {
@@ -63,7 +63,7 @@ export const login = (email: symbol, password: symbol, rememberMe: boolean) => a
     }
 }
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch: any) => {
     let response = await authAPI.logout()
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData(null, null, null, false))

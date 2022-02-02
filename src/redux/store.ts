@@ -68,27 +68,22 @@ export const store: StoreType = {
                 {id: 2, message: 'Hello', likesCount: 1},
                 {id: 3, message: 'Yo', likesCount: 22},
                 {id: 4, message: 'Yo', likesCount: 34},
-                {id: 5, message: 'Yo', likesCount: 5},
-                {id: 6, message: 'Yo', likesCount: 7}
             ],
             newPostText: 'it-kamasutra'
         },
         dialogsPage: {
+            dialogs: [
+                {id: 1, name: 'Dimych'},
+                {id: 2, name: 'Andrew'},
+                {id: 3, name: 'Sveta'},
+                {id: 4, name: 'Sasha'},
+            ],
             messages: [
                 {id: 1, message: 'Hi, how are you?'},
                 {id: 2, message: 'Hello'},
                 {id: 3, message: 'Yo'},
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'},
-                {id: 6, message: 'Yo'}
-            ],
-            dialogs: [
-                {id: 1, name: 'Dimych'},
-                {id: 2, name: 'Andrew'},
-                {id: 3, name: 'Sveta'},
-                {id: 4, name: 'Sasha'},
-                {id: 5, name: 'Viktor'},
-                {id: 6, name: 'Valera'}
             ],
             newMessageBody: ''
         },
@@ -106,7 +101,7 @@ export const store: StoreType = {
     dispatch(action: string) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.sidebar = sidebarReducer(this._state.profilePage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
         this._callSubscriber(this._state)
     }
 }
