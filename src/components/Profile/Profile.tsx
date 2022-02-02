@@ -9,7 +9,7 @@ export type ProfilePropsType = {
     updateNewPostText: (newText: string) => void
 }
 
-export const Profile: React.FC<ProfilePropsType> = (props) => {
+ const Profile: React.FC<ProfilePropsType> = (props) => {
     return (
         <div>
             <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
@@ -17,3 +17,5 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
         </div>
     )
 }
+
+export default Profile

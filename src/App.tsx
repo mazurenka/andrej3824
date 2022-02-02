@@ -31,7 +31,6 @@ class App extends Component {
             return <Preloader/>
         }
         return (
-
             <div className={'app-wrapper'}>
                 <HeaderContainer/>
                 <Navbar/>

@@ -32,7 +32,7 @@ const Login = (props) => {
     }
 
     if (props.isAuth) {
-        <Redirect to={"/profile"}/>
+        return <Redirect to={"/profile"}/>
     }
 
     return <div>

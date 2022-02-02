@@ -10,8 +10,7 @@ import {
     getFollowingInProgress,
     getIsFetching,
     getPageSize,
-    getTotalUsersCount,
-    getUsers, getUsersSuper
+    getTotalUsersCount, getUsers,
 } from "../../redux/users-selectors";
 
 type DispatchType = {
@@ -20,11 +19,13 @@ type DispatchType = {
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize} = this.props
+        this.props.getUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.requestUsers(pageNumber, this.props.pageSize)
+        const {pageSize} = this.props
+        this.props.getUsers(pageNumber, pageSize)
     }
 
     render() {
@@ -58,6 +59,6 @@ export default compose(
     connect(mapStateToProps, {
         follow, unfollow, setCurrentPage,
         toggleFollowingProgress,
-        getUsers
+        getUsers: requestUsers
     }))(UsersContainer)
 
