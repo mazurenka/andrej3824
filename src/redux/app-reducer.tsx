@@ -1,6 +1,3 @@
-import {authAPI} from "../api/api";
-import {stopSubmit} from "redux-form";
-import {Dispatch} from "redux";
 import {getAuthUserData} from "./auth-reducer";
 
 export type usersType = {
