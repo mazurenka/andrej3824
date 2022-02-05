@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
-import {RootStateType, StoreType} from "./redux/store"
+import {StoreType} from "./redux/store"
 import UsersContainer from "./components/Users/UsersContainer";
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -12,10 +12,10 @@ import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/preloader";
-import store from "./redux/redux-store";
+import store, {AppStateType} from "./redux/redux-store";
 
 export type AppType = {
-    state: RootStateType
+    state: AppStateType
     addPost: (postMessage: string) => void
     updateNewPostText: (newText: string) => void
     dispatch: (store: StoreType, action: string) => void
@@ -41,7 +41,7 @@ class App extends Component {
                     <Route path='/profile/:userId?'
                            render={() => <ProfileContainer/>}/>
                     <Route path={'/users'}
-                           render={() => <UsersContainer/>}/>
+                           render={() => <UsersContainer pageTitle={'Samurai'} />}/>
                     <Route path={'/login'}
                            render={() => <LoginPage/>}/>
                 </div>
@@ -50,7 +50,7 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppStateType) => {
     initialized: state.app.initialized
 }
 
