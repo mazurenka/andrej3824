@@ -1,16 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, lazy} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import {StoreType} from "./redux/store"
 import UsersContainer from "./components/Users/UsersContainer";
-
-//import DialogsContainer from './components/Dialogs/DialogsContainer';
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-
-//import ProfileContainer from "./components/Profile/ProfileContainer";
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
-
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -18,6 +11,17 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/preloader";
 import store, {AppStateType} from "./redux/redux-store";
+import {withSuspense} from './hoc/withSuspense';
+
+const DialogsContainer = lazy(() =>
+    import('./components/Dialogs/DialogsContainer')
+        .then(({DialogsContainer}) => ({default: DialogsContainer})),
+);
+const ProfileContainer = lazy(() =>
+    import('./components/Dialogs/DialogsContainer')
+        .then(({ProfileContainer}) => ({default: ProfileContainer})),
+);
+
 
 export type AppType = {
     state: AppStateType
@@ -41,18 +45,13 @@ class App extends Component {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() =>{
-                               return  <React.Suspense fallback={<div>Loading...</div>}>
-                                   <DialogsContainer/>
-                               </React.Suspense>}}/>
+                           render={withSuspense(DialogsContainer)}/>
 
                     <Route path='/profile/:userId?'
-                           render={() => {
-                               return <React.Suspense fallback={<div>Loading...</div>}>
-                                   <ProfileContainer/>
-                               </React.Suspense>}}/>
+                           render={withSuspense(ProfileContainer)}/>
+
                     <Route path={'/users'}
-                           render={() => <UsersContainer pageTitle={'Samurai'} />}/>
+                           render={() => <UsersContainer pageTitle={'Samurai'}/>}/>
                     <Route path={'/login'}
                            render={() => <LoginPage/>}/>
                 </div>
