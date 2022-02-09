@@ -1,8 +1,8 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/preloader";
-import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import userPhoto from "../../assets/images/images.png";
 
 export const ProfileInfo = (profile, status, updateStatus) => {
     if (!profile) {
@@ -11,7 +11,7 @@ export const ProfileInfo = (profile, status, updateStatus) => {
     return (
         <div>
             <div className={s.descriptionBlock}>
-                <img src={profile.photos.large}/>
+                <img src={profile.photos.large || userPhoto} className={s.mainPhoto}/>
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
         </div>
