@@ -19,6 +19,10 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner: boolean, savePhoto
         }
     }
 
+    const onSubmit = (formData) => {
+        props.login(formData.email, formData.password, formData.rememberMe)
+    }
+
     return (
         <div>
             <div className={s.descriptionBlock}>
@@ -26,7 +30,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner: boolean, savePhoto
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
 
                 {editMode
-                    ? <ProfileDataForm profile={profile}/>
+                    ? <ProfileDataForm profile={profile} onSubmit={onSubmit}/>
                     : <ProfileData
                         goToEditMode={() => {
                             setEditMode(true)
