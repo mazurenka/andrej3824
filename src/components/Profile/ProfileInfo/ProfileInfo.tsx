@@ -1,10 +1,13 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../assets/images/images.png";
+import ProfileDataForm from "./ProfileDataForm";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner: boolean, savePhoto}) => {
+
+    let [editMode, setEditMode] = useState(false)
 
     if (!profile) {
         return <Preloader/>
@@ -22,7 +25,14 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner: boolean, savePhoto
                 <img src={profile.photos.large || userPhoto} className={s.mainPhoto}/>
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
 
-                <ProfileData profile={profile}/>
+                {editMode
+                    ? <ProfileDataForm profile={profile}/>
+                    : <ProfileData
+                        goToEditMode={() => {
+                            setEditMode(true)
+                        }}
+                        profile={profile}
+                        isOwner={isOwner}/>}
 
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
@@ -30,8 +40,11 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner: boolean, savePhoto
     )
 }
 
-const ProfileData = (profile) => {
+const ProfileData = ({profile, isOwner, goToEditMode}) => {
     return <div>
+        {isOwner && <div>
+            <button onClick={goToEditMode}>edit</button>
+        </div>}
         <div>
             <b>Full name</b>: {profile.fullName}
         </div>
