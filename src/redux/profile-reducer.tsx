@@ -1,6 +1,7 @@
 import {ProfilePropsType} from "../components/Profile/Profile";
 import {PostType} from "./store";
 import {profileAPI, usersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 
 const ADD_POST = 'ADD-POST'
@@ -87,6 +88,8 @@ export const saveProfile = (profile) => async (dispatch: any, getState) => {
     let response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId))
+    } else {
+        dispatch(stopSubmit('login', {_error: response.data.message[0]}))
     }
 }
 
