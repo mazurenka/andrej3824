@@ -30,6 +30,7 @@ let initialState = {
 const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case SET_USER_DATA:
+        case GET_CAPTCHA_URL_SUCCESS:
             return {
                 ...state,
                 ...action.payload
@@ -58,8 +59,8 @@ export const getAuthUserData = () => async (dispatch: Dispatch) => {
     }
 }
 
-export const login = (email: symbol, password: symbol, rememberMe: boolean) => async (dispatch: any) => {
-    let response = await authAPI.login(email, password, rememberMe)
+export const login = (email: symbol, password: symbol, rememberMe: boolean, captcha) => async (dispatch: any) => {
+    let response = await authAPI.login(email, password, rememberMe, captcha)
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
     } else {
