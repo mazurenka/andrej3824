@@ -1,10 +1,11 @@
 import React from "react";
-import {ProfilePageType, RootStateType} from "../../redux/store";
-import {Profile} from "./Profile";
+import {ProfilePageType} from "../../redux/store";
 import {connect} from "react-redux";
 import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {AppStateType} from "../../redux/redux-store";
+import Profile from "./Profile";
 
 export type ProfilePropsType = {
     profilePage: ProfilePageType
@@ -49,7 +50,7 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: AppStateType) => {
     return ({
         profile: state.profilePage.profile,
         status: state.profilePage.status,

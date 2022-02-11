@@ -5,7 +5,7 @@ export const Settings = () => {
         <div>
 
             <div>
-               Settings
+                Settings
             </div>
 
         </div>

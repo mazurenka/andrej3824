@@ -2,12 +2,9 @@ import React from "react";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogsItem";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import {DialogsPageType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
-import reduxForm, {Field} from "redux-form";
-import { Textarea } from "../common/FormsControls/FormsControls";
-import {required} from "../../utils/validators/validators";
+import reduxForm from "redux-form";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
 export type PropsType = {
@@ -36,13 +33,10 @@ export const Dialogs = (props: PropsType) => {
             <div className={s.messages}>
                 <div>{messagesElements}</div>
             </div>
-            <AddMessageFormRedux onSubmit={addNewMessage} />
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
         </div>
     )
 }
 
 
-
-
-
-const AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'}) (AddMessageForm)
+const AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'})(AddMessageForm)

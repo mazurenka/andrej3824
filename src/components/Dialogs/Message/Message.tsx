@@ -1,6 +1,5 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
-import { MessageType } from "../../../redux/store";
+import {MessageType} from "../../../redux/store";
 import s from './../Dialogs.module.css';
 
 const Message = (props: MessageType) => {

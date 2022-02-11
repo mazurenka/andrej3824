@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/store";
 import {logout} from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/redux-store";
 
 class HeaderContainer extends React.Component {
 
@@ -11,7 +11,7 @@ class HeaderContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state: RootStateType) => ({
+const mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
 
