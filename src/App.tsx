@@ -1,7 +1,7 @@
 import React, {Component, lazy} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {StoreType} from "./redux/store"
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -39,30 +39,41 @@ class App extends Component {
         if (!this.props.initialized) {
             return <Preloader/>
         }
+
         return (
             <div className={'app-wrapper'}>
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs'
-                           render={withSuspense(DialogsContainer)}/>
+                    <Switch>
 
-                    <Route path='/profile/:userId?'
-                           render={withSuspense(ProfileContainer)}/>
+                        <Route path='/'
+                               render={ () => <Redirect to={'profile'}/> }/>
 
-                    <Route path={'/users'}
-                           render={() => <UsersContainer pageTitle={'Samurai'}/>}/>
-                    <Route path={'/login'}
-                           render={() => <LoginPage/>}/>
+                        <Route path='/dialogs'
+                               render={withSuspense(DialogsContainer)}/>
+
+                        <Route path='/profile/:userId?'
+                               render={withSuspense(ProfileContainer)}/>
+
+                        <Route path={'/users'}
+                               render={() => <UsersContainer pageTitle={'Samurai'}/>}/>
+
+                        <Route path={'/login'}
+                               render={() => <LoginPage/>}/>
+
+                        <Route path={'*'}
+                               render={() => <div>404 NOT FOUND</div>}/>
+                    </Switch>
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
-}
+})
 
 let AppContainer = compose(
     withRouter,
