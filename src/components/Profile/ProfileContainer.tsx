@@ -15,7 +15,7 @@ export type ProfilePropsType = {
 
 class ProfileContainer extends React.Component {
 
-    refreshProfile () {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId;
@@ -60,8 +60,10 @@ let mapStateToProps = (state: AppStateType) => {
 }
 
 export default compose(
-    connect(mapStateToProps, {getUserProfile,
-        getStatus, updateStatus, savePhoto, saveProfile}),
+    connect(mapStateToProps, {
+        getUserProfile,
+        getStatus, updateStatus, savePhoto, saveProfile
+    }),
     withRouter,
 )(ProfileContainer)
 
