@@ -31,8 +31,18 @@ export type AppType = {
 }
 
 class App extends Component {
+    catchAllUnhandledErrors = (promiseRejectionEvent) => {
+        alert("Some error occured")
+        console.error(promiseRejectionEvent)
+    }
+
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -48,7 +58,7 @@ class App extends Component {
                     <Switch>
 
                         <Route path='/'
-                               render={ () => <Redirect to={'profile'}/> }/>
+                               render={() => <Redirect to={'profile'}/>}/>
 
                         <Route path='/dialogs'
                                render={withSuspense(DialogsContainer)}/>
