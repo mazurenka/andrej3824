@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ProfileType} from "../types/types";
 
 const instance = axios.create({
     withCredentials: true,
@@ -11,8 +12,8 @@ const instance = axios.create({
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(responce => {
-                return responce.data;
+            .then(response => {
+                return response.data;
             });
     },
     follow(userId: string) {
@@ -37,16 +38,16 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put(`profile/status/`, {status: status})
     },
-    savePhoto(photofile) {
+    savePhoto(photoFile: File) {
         const formData = new FormData()
-        formData.append('image', photofile)
-        return instance.put(`profile/photo`, photofile, {
+        formData.append('image', photoFile)
+        return instance.put(`profile/photo`, photoFile, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
     },
-    saveProfile(profile) {
+    saveProfile(profile: ProfileType) {
         return instance.put(`profile`, profile)
     }
 }
@@ -55,7 +56,7 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`);
     },
-    login(email: symbol, password: symbol, rememberMe = false, captcha = null) {
+    login(email: string, password: string, rememberMe = false, captcha: null | string = null) {
         return instance.post(`auth/login`, {email, password, rememberMe, captcha});
     },
     logout() {
