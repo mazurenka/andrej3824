@@ -31,8 +31,8 @@ export type AppType = {
 }
 
 class App extends Component {
-    catchAllUnhandledErrors = (promiseRejectionEvent) => {
-        alert("Some error occured")
+    catchAllUnhandledErrors = (reason, promise) => {
+        alert("Some error occurred")
         console.error(promiseRejectionEvent)
     }
 
