@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 import {updateObjectInArray} from "../utils/object-helpers";
 
-export type usersType = {
+export type UserType = {
     id: number
     photoUrl: string
     followed: boolean
@@ -75,7 +75,7 @@ const usersReducer = (state = initialState, action: any) => {
 }
 export const followSuccess = (userId: string) => ({type: FOLLOW, userId})
 export const unfollowSuccess = (userId: string) => ({type: UNFOLLOW, userId})
-export const setUsers = (users: Array<usersType>) => ({type: SET_USERS, users})
+export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount})
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching})
