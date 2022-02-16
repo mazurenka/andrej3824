@@ -1,7 +1,7 @@
 import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-export type usersType = {
+type usersType = {
     id: number
     photoUrl: string
     followed: boolean

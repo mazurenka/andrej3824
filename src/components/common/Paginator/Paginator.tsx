@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import styles from "../Paginator.module.css";
+import React, {useState} from "react"
+import styles from "../Paginator.module.css"
 import cn from "classnames"
 
 type PropsType = {
