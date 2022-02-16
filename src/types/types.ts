@@ -26,13 +26,11 @@ export type ProfileType = {
     photos: PhotosType
     aboutMe: string
 }
-
 export type UserType = {
     id: number
     name: string
     status: string
     photos: PhotosType
-    followed: boolean
 }
 
 
