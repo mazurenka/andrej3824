@@ -1,6 +1,5 @@
 import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {Dispatch} from "redux";
 
 export type usersType = {
     id: number
@@ -19,15 +18,17 @@ type locationType = {
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
 
+export type initialStateType = typeof initialState
+
 let initialState = {
-    userId: null,
-    email: null,
-    login: null,
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
-    captchaUrl: null
+    captchaUrl: null as string | null
 }
 
-const authReducer = (state = initialState, action: any) => {
+const authReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
         case GET_CAPTCHA_URL_SUCCESS:
@@ -39,18 +40,33 @@ const authReducer = (state = initialState, action: any) => {
             return state;
     }
 }
+type setAuthUserDataActionPayloadType = {
+    userId: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+}
+type setAuthUserDataActionType = {
+    type: typeof SET_USER_DATA
+    payload: setAuthUserDataActionPayloadType
+}
 
-export const setAuthUserData = (userId: null | number,
-                                email: null | string,
-                                login: null | string,
+export const setAuthUserData = (userId: number | null,
+                                email: string | null,
+                                login: string | null,
                                 isAuth: boolean
-) => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
+): setAuthUserDataActionType => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
 
-export const getCaptchaUrlSuccess = (captchaUrl: string) => ({
+type getCaptchaUrlSuccessActionType = {
+    type: typeof GET_CAPTCHA_URL_SUCCESS
+    payload: { captchaUrl: string }
+}
+
+export const getCaptchaUrlSuccess = (captchaUrl: string): getCaptchaUrlSuccessActionType => ({
     type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}
 })
 
-export const getAuthUserData = () => async (dispatch: Dispatch) => {
+export const getAuthUserData = () => async (dispatch: any) => {
     let response = await authAPI.me()
 
     if (response.data.resultCode === 0) {
@@ -59,7 +75,10 @@ export const getAuthUserData = () => async (dispatch: Dispatch) => {
     }
 }
 
-export const login = (email: symbol, password: symbol, rememberMe: boolean, captcha) => async (dispatch: any) => {
+export const login = (email: string,
+                      password: string,
+                      rememberMe: boolean,
+                      captcha: string) => async (dispatch: any) => {
     let response = await authAPI.login(email, password, rememberMe, captcha)
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
@@ -79,7 +98,7 @@ export const getCaptchaUrl = () => async (dispatch: any) => {
 
 }
 
-export const logout = () => async (dispatch: Dispatch) => {
+export const logout = () => async (dispatch: any) => {
     let response = await authAPI.logout()
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData(null, null, null, false))
