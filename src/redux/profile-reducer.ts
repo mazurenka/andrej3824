@@ -10,18 +10,49 @@ const SET_STATUS = 'SET_STATUS'
 const DELETE_POST = 'DELETE_POST'
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS'
 
+type PostsType = {
+    id: number
+    message: string
+    likesCount: number
+}
+type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+type PhotosType = {
+    small: string | null
+    large: string | null
+}
+type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
+
 let initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCount: 12},
         {id: 2, message: 'Hello', likesCount: 11},
         {id: 3, message: 'Yo', likesCount: 22},
         {id: 4, message: 'Yo', likesCount: 34},
-    ],
-    profile: null,
-    status: ""
+    ] as Array<PostsType>,
+    profile: null as ProfileType | null,
+    status: '',
+    newPostText: ''
 }
 
-const profileReducer = (state = initialState, action: any) => {
+export type InitialStateType = typeof initialState
+
+const profileReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostType = {
@@ -56,9 +87,25 @@ const profileReducer = (state = initialState, action: any) => {
             return state
     }
 }
-export const addPostActionCreator = (newPostText: any) => ({type: ADD_POST, newPostText})
-export const setUserProfile = (profile: React.FC<ProfilePropsType>) => ({type: SET_USER_PROFILE, profile})
-export const setStatus = (status: string) => ({type: SET_STATUS, status})
+
+type AddPostActionCreatorActionType = {
+    type: typeof ADD_POST
+    newPostText: string
+}
+export const addPostActionCreator = (newPostText: string): AddPostActionCreatorActionType => ({
+    type: ADD_POST,
+    newPostText
+})
+type SetUserProfileActionType = {
+    type: typeof SET_USER_PROFILE
+    profile: ProfileType
+}
+export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({type: SET_USER_PROFILE, profile})
+type SetStatusActionType = {
+    type: typeof SET_STATUS
+    status: string
+}
+export const setStatus = (status: string): SetStatusActionType => ({type: SET_STATUS, status})
 export const deletePost = (postId: any) => ({type: DELETE_POST, postId})
 export const savePhotoSuccess = (photos: any) => ({type: SAVE_PHOTO_SUCCESS, photos})
 
