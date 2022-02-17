@@ -22,7 +22,6 @@ const ProfileContainer = lazy(() =>
         .then(({ProfileContainer}) => ({default: ProfileContainer})),
 );
 
-
 export type AppType = {
     state: AppStateType
     addPost: (postMessage: string) => void
