@@ -81,7 +81,11 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default compose(
-    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps,
+    connect<MapStatePropsType,
+        MapDispatchPropsType,
+        OwnPropsType,
+        AppStateType>
+    (mapStateToProps,
         {
             follow, unfollow,
             getUsers: requestUsers
