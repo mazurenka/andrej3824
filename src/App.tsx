@@ -1,4 +1,4 @@
-import React, {Component, lazy} from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
@@ -13,14 +13,8 @@ import Preloader from "./components/common/Preloader/preloader";
 import store, {AppStateType} from "./redux/redux-store";
 import {withSuspense} from './hoc/withSuspense';
 
-const DialogsContainer = lazy(() =>
-    import('./components/Dialogs/DialogsContainer')
-        .then(({DialogsContainer}) => ({default: DialogsContainer})),
-);
-const ProfileContainer = lazy(() =>
-    import('./components/Profile/ProfileContainer')
-        .then(({ProfileContainer}) => ({default: ProfileContainer})),
-);
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
 export type AppType = {
     state: AppStateType

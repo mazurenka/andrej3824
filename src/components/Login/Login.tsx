@@ -1,6 +1,6 @@
 import React from "react";
 import {InjectedFormProps, reduxForm} from "redux-form"
-import {createField, Input} from "../common/FormsControls/FormsControls";
+import {createField, GetStringKeys, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
@@ -19,9 +19,9 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
                                                                                                             }) => {
     return (
         <form onSubmit={handleSubmit}>
-            {createField("Email", "email", [required], Input)}
-            {createField("Password", "password", [required], Input, {type: "password"})}
-            {createField(null, "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
+            {createField<LoginFormValuesTypeKeys>("Email", "email", [required], Input)}
+            {createField<LoginFormValuesTypeKeys>("Password", "password", [required], Input, {type: "password"})}
+            {createField<LoginFormValuesTypeKeys>(undefined, "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
 
             {captchaUrl && <img src={captchaUrl}/>}
             {captchaUrl && createField('Symbols from image', "captcha", [required], Input, {})}
@@ -55,8 +55,9 @@ type LoginFormValuesType = {
     rememberMe: boolean
     password: string
     email: string
-
 }
+
+type LoginFormValuesTypeKeys = GetStringKeys<LoginFormValuesType>
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     const onSubmit = (formData: LoginFormValuesType) => {
