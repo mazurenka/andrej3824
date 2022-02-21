@@ -25,7 +25,6 @@ const usersReducer = (state = initialState, action: ActionsType): InitialStateTy
                 ...state,
                 users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
             }
-
         case 'SN/USERS/SET_USERS': {
             return {...state, users: action.users}
         }
@@ -46,7 +45,6 @@ const usersReducer = (state = initialState, action: ActionsType): InitialStateTy
                     : state.followingInProgress.filter(id => id != action.userId)
             }
         }
-
         default:
             return state
     }
