@@ -1,5 +1,7 @@
-import {authAPI, ResultCodesEnum, securityAPI} from "../api/api";
+import {ResultCodesEnum} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {authAPI} from "../api/auth-api";
+import {securityAPI} from "../api/security-api";
 
 type usersType = {
     id: number
