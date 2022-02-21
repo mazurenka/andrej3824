@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
-import {StoreType} from "./redux/store"
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
@@ -16,17 +15,14 @@ import {withSuspense} from './hoc/withSuspense';
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
-export type AppType = {
-    state: AppStateType
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newText: string) => void
-    dispatch: (store: StoreType, action: string) => void
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
 }
 
-class App extends Component {
-    catchAllUnhandledErrors = (reason, promise) => {
+class App extends Component<MapPropsType & DispatchPropsType> {
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
         alert("Some error occurred")
-        console.error(promiseRejectionEvent)
     }
 
     componentDidMount() {
@@ -78,11 +74,11 @@ const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
-let AppContainer = compose(
+let AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
 
-const SamuraiJSApp = (props: any) => {
+const SamuraiJSApp: React.FC = () => {
     return <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>
