@@ -1,13 +1,13 @@
 import React, {ChangeEvent, useState} from "react";
 import s from './ProfileInfo.module.css';
-import Preloader from "../../common/Preloader/preloader";
+import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../assets/images/images.png";
 import ProfileDataForm from "./ProfileDataForm";
 import {ContactsType, ProfileType} from "../../../types/types";
 
 type PropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
@@ -24,7 +24,7 @@ const ProfileInfo: React.FC<PropsType> = ({profile, status, updateStatus, isOwne
     }
 
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files?.length) {
+        if (e.target.files && e.target.files.length) {
             savePhoto(e.target.files[0])
         }
     }
@@ -84,10 +84,11 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEdit
         <div>
             <b>Contacts</b>: {
             Object
-            .keys(profile.contacts)
-            .map(key => {
-            return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
-        })}
+                .keys(profile.contacts)
+                .map(key => {
+                    return <Contact key={key} contactTitle={key}
+                                    contactValue={profile.contacts[key as keyof ContactsType]}/>
+                })}
         </div>
     </div>
 }

@@ -1,15 +1,18 @@
 import React from "react";
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfilePageType} from "../../redux/store";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {ProfileType} from "../../types/types";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-export type ProfilePropsType = {
-    profilePage: ProfilePageType
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newText: string) => void
+type PropsType = {
+    savePhoto: (file: File) => void
+    isOwner: boolean
+    profile: ProfileType | null
+    status: string
+    saveProfile: (profile: ProfileType) => Promise<any>
+    updateStatus: (status: string) => void
 }
 
-const Profile: React.FC<ProfilePropsType> = (props) => {
+const Profile: React.FC<PropsType> = (props) => {
     return (
         <div>
             <ProfileInfo

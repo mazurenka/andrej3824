@@ -1,34 +1,60 @@
 import React from "react";
 import {connect} from "react-redux";
 import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import Profile from "./Profile";
+import {ProfileType} from "../../types/types";
 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchProps = {
+    getUserProfile: (userId: number) => void
+    getStatus: (userId: number) => void
+    updateStatus: (status: string) => void
+    savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
+}
 
-class ProfileContainer extends React.Component {
+type PathParamsType = {
+    userId: string
+}
+
+type PropsType = MapPropsType & MapDispatchProps & RouteComponentProps<PathParamsType>;
+
+class ProfileContainer extends React.Component<PropsType> {
+    constructor(props: PropsType) {
+        super(props);
+    }
 
     refreshProfile() {
-        let userId = this.props.match.params.userId
+        let userId: number | null = +this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId;
             if (!userId) {
+                // todo: may be replace push with Redirect?
                 this.props.history.push("/login");
             }
         }
-        this.props.getUserProfile(userId);
-        this.props.getStatus(userId);
+        if (!userId) {
+            console.error("ID should be exist")
+        } else {
+            this.props.getUserProfile(userId);
+            this.props.getStatus(userId);
+        }
     }
 
     componentDidMount() {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any) {
+    componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
         if (this.props.match.params.userId != prevProps.match.params.userId) {
             this.refreshProfile()
         }
+    }
+
+    componentWillUnmount(): void {
     }
 
     render() {
