@@ -27,6 +27,7 @@ export type ProfileType = {
     aboutMe: string
 }
 export type UserType = {
+    followed: boolean;
     id: number
     name: string
     status: string

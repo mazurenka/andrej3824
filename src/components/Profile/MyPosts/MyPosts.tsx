@@ -1,64 +1,39 @@
 import React from "react";
 import s from './MyPosts.module.css';
-import {PostType} from "../../../redux/store";
-import Field, {reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {Textarea} from "../../common/FormsControls/FormsControls";
 import {Post} from "./Post/Post";
+import AddPostForm, {AddPostFormValuesType} from "./AddPostForm/AddPostForm";
+import {PostType} from "../../../types/types";
 
-export type MyPostsPropsType = {
+type PropsType = {
     posts: Array<PostType>
-    addPost: (postMessage: string) => void
-    newPostText: string
-    updateNewPostText: (newText: string | undefined) => void
-    dispatch: (action: string) => void
+    addPost: (newPostText: string) => void
 }
 
-const maxLength10 = maxLengthCreator(10)
-
-let AddNewPostForm = (props: { onChange: () => void, ref: React.RefObject<HTMLTextAreaElement>, value: string, onClick: () => void, elements: JSX.Element[] }) => {
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field name={'newPostText'}
-                   component={Textarea}
-                   validate={[required, maxLength10]}
-                   placeholder={'Post message'}
-            />
-        </div>
-        <div>
-            <button>Add post</button>
-        </div>
-        <div className={s.posts}>
-            {props.elements}
-        </div>
-    </form>;
-}
-
-let AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
-
-const MyPosts = React.memo((props: MyPostsPropsType) => {
+const MyPosts: React.FC<PropsType> = props => {
     let postsElements =
         [...props.posts]
             .reverse()
             .map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
+    let newPostElement = React.createRef()
 
-    let onAddPost = (values: any) => {
+    let onAddPost = (values: AddPostFormValuesType) => {
         props.addPost(values.newPostText)
     }
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
-            <AddNewPostFormRedux onSubmit={onAddPost}/>
+            <AddPostForm onSubmit={onAddPost}/>
             <div className={s.posts}>
                 {postsElements}
             </div>
         </div>
     )
-});
+}
 
-export default MyPosts
+const MyPostsMemorized = React.memo(MyPosts)
+
+export default MyPostsMemorized
 
 
