@@ -35,7 +35,6 @@ let User: React.FC<PropsType> = ({user, followingInProgress, unfollow, follow}) 
                                    }}>
                              Follow</button>
                      }
-                     <button>Follow</button>
                  </div>
              </span>
             <span>

@@ -37,10 +37,6 @@ type OwnPropsType = {
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
-type DispatchType = {
-    followAC: (text: string, userId: number) => void
-}
-
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         const {currentPage, pageSize} = this.props
