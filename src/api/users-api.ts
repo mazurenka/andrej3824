@@ -5,10 +5,10 @@ export const usersAPI = {
         return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
     },
-    follow(userId: string) {
+    follow(userId: number) {
         return instance.post<APIResponseType>(`follow/${userId}`).then(res => res.data)
     },
-    unfollow(userId: string) {
+    unfollow(userId: number) {
         return instance.delete(`follow/${userId}`).then(res => res.data) as Promise<APIResponseType>
     }
 }
