@@ -112,6 +112,6 @@ export const unfollow = (userId: number): ThunkType => {
 export default usersReducer;
 
 type ActionsType = InferActionsTypes<typeof actions>
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 type DispatchType = Dispatch<ActionsType>
 type ThunkType = BaseThunkType<ActionsType>
