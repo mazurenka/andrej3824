@@ -11,7 +11,7 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: [] as Array<number> ,  //array of users id
+    followingInProgress: [] as Array<number>,  //array of users id
     filter: {term: '', friend: null as null | boolean}
 }
 
@@ -62,7 +62,7 @@ export const actions = {
     setCurrentPage: (currentPage: number) => ({type: 'SN/USERS/SET_CURRENT_PAGE', currentPage} as const),
     setFilter: (filter: FilterType) => ({
         type: 'SN/USERS/SET_FILTER',
-        payload: {filter}
+        payload: filter
     } as const),
     setTotalUsersCount: (totalUsersCount: number) => ({
         type: 'SN/USERS/SET_TOTAL_USERS_COUNT',
