@@ -12,7 +12,7 @@ type PropsType = {
     onFilterChanged: (filter: FilterType) => void
 }
 
-export const UsersSearchForm: React.FC<PropsType> = (props) => {
+export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
 
     const submit = (values: FilterType,
                     {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
@@ -22,13 +22,18 @@ export const UsersSearchForm: React.FC<PropsType> = (props) => {
 
     return <div>
         <Formik
-            initialValues={{term: ''}}
+            initialValues={{term: '', friend: null}}
             validate={usersSearchFormValidate}
             onSubmit={submit}
         >
             {({isSubmitting}) => (
                 <Form>
                     <Field type="text" name="term"/>
+                    <Field as="select" name="friend">
+                        <option value="null">All</option>
+                        <option value="true">Only followed</option>
+                        <option value="false">Only unfollowed</option>
+                    </Field>
                     <button type="submit" disabled={isSubmitting}>
                         Find
                     </button>
@@ -36,4 +41,4 @@ export const UsersSearchForm: React.FC<PropsType> = (props) => {
             )}
         </Formik>
     </div>
-}
+})

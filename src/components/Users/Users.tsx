@@ -27,7 +27,7 @@ let Users: FC<PropsType> = ({
                             }) => {
     return <div>
 
-        <UsersSearchForm onFilterChanged={props.onFilterChanged()} />
+        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
 
         <Paginator currentPage={currentPage}
                    onPageChanged={onPageChanged}
