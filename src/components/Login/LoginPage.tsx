@@ -49,7 +49,7 @@ type LoginFormValuesTypeKeys = GetStringKeys<LoginFormValuesType>
 
 export const LoginPage: React.FC = () => {
 
-    const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl)
+    const captchaUrl     = useSelector((state: AppStateType) => state.auth.captchaUrl)
     const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
     const dispatch = useDispatch()
 
