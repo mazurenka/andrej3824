@@ -23,7 +23,6 @@ export const Header: React.FC<MapPropsType> = (props) => {
     const {Header} = Layout
 
     return <Header className="header">
-        <div className="logo"/>
         <Row>
             <Col span={18}>
                 <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>

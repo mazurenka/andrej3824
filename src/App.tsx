@@ -17,7 +17,7 @@ import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/ic
 import {Header} from "./components/Header/Header";
 
 const {SubMenu} = Menu;
-const { Content, Footer, Sider} = Layout;
+const {Content, Footer, Sider} = Layout;
 
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
@@ -112,7 +112,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+                <Footer style={{textAlign: 'center'}}>Samurai Social Network ©2022 Created by AndreiDev</Footer>
             </Layout>
 
             // <div className={'app-wrapper'}>
