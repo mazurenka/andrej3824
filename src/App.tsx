@@ -15,14 +15,13 @@ import {LoginPage} from './components/Login/LoginPage';
 import {Breadcrumb, Layout, Menu} from 'antd';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import {Header} from "./components/Header/Header";
-import {ChatPages} from "./pages/Chat/ChatPages";
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
 
-
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+const ChatPages = React.lazy(() => import('./pages/Chat/ChatPages'))
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
