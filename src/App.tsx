@@ -15,6 +15,7 @@ import {LoginPage} from './components/Login/LoginPage';
 import {Breadcrumb, Layout, Menu} from 'antd';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import {Header} from "./components/Header/Header";
+import {ChatPages} from "./pages/Chat/ChatPages";
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
@@ -105,8 +106,13 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                                 <Route path={'/login'}
                                        render={() => <LoginPage/>}/>
 
+                                <Route path={'/chat'}
+                                       render={() => <ChatPages/>}/>
+
                                 <Route path={'*'}
                                        render={() => <div>404 NOT FOUND</div>}/>
+
+
                             </Switch>
 
                         </Content>
@@ -114,31 +120,6 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 </Content>
                 <Footer style={{textAlign: 'center'}}>Samurai Social Network ©2022 Created by AndreiDev</Footer>
             </Layout>
-
-            // <div className={'app-wrapper'}>
-            //     <HeaderContainer/>
-            //     <Navbar/>
-            //     <div className='app-wrapper-content'>
-            //
-            //         <Route path='/'
-            //                render={() => <Redirect to={'/profile'}/>}/>
-            //
-            //         <Route path='/dialogs'
-            //                render={() => <SuspendedDialogs/>}/>
-            //
-            //         <Route path='/profile/:userId?'
-            //                render={() => <SuspendedProfile/>}/>
-            //
-            //         <Route path={'/users'}
-            //                render={() => <UsersPage pageTitle={'Samurai'}/>}/>
-            //
-            //         <Route path={'/login'}
-            //                render={() => <LoginPage/>}/>
-            //
-            //         <Route path={'*'}
-            //                render={() => <div>404 NOT FOUND</div>}/>
-            //     </div>
-            // </div>
         )
     }
 }
