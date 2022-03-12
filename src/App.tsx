@@ -11,7 +11,6 @@ import {withSuspense} from './hoc/withSuspense';
 import {UsersPage} from "./components/Users/UsersContainer";
 import {LoginPage} from './components/Login/LoginPage';
 
-
 import {Breadcrumb, Layout, Menu} from 'antd';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import {Header} from "./components/Header/Header";
@@ -21,7 +20,7 @@ const {Content, Footer, Sider} = Layout;
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
-const ChatPages = React.lazy(() => import('./pages/Chat/ChatPages'))
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'))
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -30,6 +29,7 @@ type DispatchPropsType = {
 
 const SuspendedDialogs = withSuspense(DialogsContainer)
 const SuspendedProfile = withSuspense(ProfileContainer)
+const SuspendedChatPage = withSuspense(ChatPage)
 
 class App extends Component<MapPropsType & DispatchPropsType> {
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -80,7 +80,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                                     <Menu.Item key="8">option8</Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" icon={<NotificationOutlined/>} title="subnav 3">
-                                    <Menu.Item key="9">option9</Menu.Item>
+                                    <Menu.Item key="9"><Link to={"/chat"}>Chat</Link></Menu.Item>
                                     <Menu.Item key="10">option10</Menu.Item>
                                     <Menu.Item key="11">option11</Menu.Item>
                                     <Menu.Item key="12">option12</Menu.Item>
@@ -106,7 +106,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                                        render={() => <LoginPage/>}/>
 
                                 <Route path={'/chat'}
-                                       render={() => <ChatPages/>}/>
+                                       render={() => <SuspendedChatPage/>}/>
 
                                 <Route path={'*'}
                                        render={() => <div>404 NOT FOUND</div>}/>
