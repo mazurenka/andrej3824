@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {message} from "antd";
 
 const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
