@@ -28,10 +28,10 @@ const Messages: React.FC = () => {
 
     useEffect(() => {
         ws.addEventListener('message', (e) => {
-            SetMessages(JSON.parse(e.data))
+            let newMessages = JSON.parse(e.data)
+            SetMessages([...messages, ...newMessages])
         })
-    })
-
+    }, [])
 
     return <div style={{height: '400px', overflow: 'auto'}}>
         {messages.map((m, index) => <Message key={index} message={m}/>)}

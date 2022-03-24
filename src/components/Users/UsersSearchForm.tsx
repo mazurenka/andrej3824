@@ -10,7 +10,7 @@ const usersSearchFormValidate = (values: any) => {
     return errors
 }
 
-type FriendFormType = 'true' | 'false' | 'null'
+type FriendFormType =  'true' | 'false' | 'null'
 
 type FormType = {
     term: string
