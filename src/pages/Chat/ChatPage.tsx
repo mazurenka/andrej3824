@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
+import {message} from "antd";
 
-const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+const wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 export type ChatMessageType = {
     message: string
@@ -24,12 +25,12 @@ const Chat: React.FC = () => {
 
 const Messages: React.FC = () => {
 
-    const [messages, SetMessages] = useState<ChatMessageType[]>([])
+    const [messages, setMessages] = useState<ChatMessageType[]>([])
 
     useEffect(() => {
-        ws.addEventListener('message', (e) => {
+        wsChannel.addEventListener('message', (e) => {
             let newMessages = JSON.parse(e.data)
-            SetMessages([...messages, ...newMessages])
+            setMessages((prevMessages) => [...prevMessages, ...newMessages])
         })
     }, [])
 
@@ -49,12 +50,21 @@ const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
 
 
 const AddMessageForm: React.FC = () => {
+    const [message, setMessage] = useState('')
+    const sendMessage = () => {
+        if (!message) {
+            return;
+        }
+        wsChannel.send(message)
+        setMessage('')
+    }
+
     return <div>
         <div>
-            <textarea></textarea>
+            <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea>
         </div>
         <div>
-            <button>Send</button>
+            <button onClick={sendMessage}>Send</button>
         </div>
     </div>
 }
